@@ -1,0 +1,28 @@
+contract BEP20Token is Context, IBEP20, Ownable {
+  using SafeMath for uint256;
+
+  mapping (address => uint256) private _balances;
+
+  mapping (address => mapping (address => uint256)) private _allowances;
+
+  uint256 private _totalSupply;
+  uint8 private _decimals;
+  string private _symbol;
+  string private _name;
+
+  constructor() public {
+    _name = "ONECOIN";
+    _symbol = "ONEC";
+    _decimals = 9;
+    _totalSupply = 210000000000000000000; // 210 billion
+    _balances[msg.sender] = _totalSupply;
+
+    emit Transfer(address(0), msg.sender, _totalSupply);
+  }
+
+  /**
+   * @dev Returns the bep token owner.
+   */
+  function getOwner() external view returns (address) {
+    return owner();
+  }
